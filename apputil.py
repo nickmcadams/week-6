@@ -38,7 +38,7 @@ class Genius:
         artist_response.raise_for_status()
         artist_data = artist_response.json()
 
-        return artist_data["response"]["artist"]
+        return artist_data
 
     def get_artists(self, search_terms):
         """Return a DataFrame of artist information for multiple search terms."""
@@ -46,6 +46,9 @@ class Genius:
         
         for search_term in search_terms:
             artist = self.get_artist(search_term)
+
+            if artist is not None:
+                artist = artist["response"]["artist"]
             
             if artist is None:
                 artists.append({
